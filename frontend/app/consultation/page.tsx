@@ -12,14 +12,59 @@ const fadeInUp = {
 };
 
 export default function ConsultationPage() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    company: "",
+    standard: "ISO 9001 (Quality Management)",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitted(true);
-    }, 1000);
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+      const combinedMessage = `Company: ${formData.company}\nStandard of Interest: ${formData.standard}\n\nDetails:\n${formData.message}`;
+
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: fullName,
+          email: formData.email,
+          message: combinedMessage,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setIsSubmitted(true);
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          company: "",
+          standard: "ISO 9001 (Quality Management)",
+          message: "",
+        });
+      } else {
+        setErrorMessage(data.message || "Failed to submit request. Please try again.");
+      }
+    } catch (err: any) {
+      setErrorMessage("Network error occurred. Please try again or reach out directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,23 +115,33 @@ export default function ConsultationPage() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {errorMessage && (
+                    <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label htmlFor="firstName" className="text-sm font-medium text-foreground">First Name</label>
+                      <label htmlFor="firstName" className="text-sm font-medium text-foreground">First Name <span className="text-red-400">*</span></label>
                       <input 
                         type="text" 
                         id="firstName" 
                         required
+                        value={formData.firstName}
+                        onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                         placeholder="John"
                       />
                     </div>
                     <div className="space-y-2">
-                      <label htmlFor="lastName" className="text-sm font-medium text-foreground">Last Name</label>
+                      <label htmlFor="lastName" className="text-sm font-medium text-foreground">Last Name <span className="text-red-400">*</span></label>
                       <input 
                         type="text" 
                         id="lastName" 
                         required
+                        value={formData.lastName}
+                        onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                         placeholder="Doe"
                       />
@@ -94,11 +149,13 @@ export default function ConsultationPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="email" className="text-sm font-medium text-foreground">Work Email</label>
+                    <label htmlFor="email" className="text-sm font-medium text-foreground">Work Email <span className="text-red-400">*</span></label>
                     <input 
                       type="email" 
                       id="email" 
                       required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                       placeholder="john@company.com"
                     />
@@ -109,7 +166,8 @@ export default function ConsultationPage() {
                     <input 
                       type="text" 
                       id="company" 
-                      required
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
                       placeholder="Acme Corp"
                     />
@@ -119,36 +177,45 @@ export default function ConsultationPage() {
                     <label htmlFor="standard" className="text-sm font-medium text-foreground">ISO Standard of Interest</label>
                     <select 
                       id="standard"
+                      value={formData.standard}
+                      onChange={(e) => setFormData({ ...formData, standard: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-[#0a1526] border border-white/10 text-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all appearance-none"
                     >
-                      <option value="9001">ISO 9001 (Quality Management)</option>
-                      <option value="27001">ISO 27001 (Information Security)</option>
-                      <option value="14001">ISO 14001 (Environmental Management)</option>
-                      <option value="45001">ISO 45001 (Health & Safety)</option>
-                      <option value="22000">ISO 22000 (Food Safety)</option>
-                      <option value="21001">ISO 21001 (Educational Organizations)</option>
-                      <option value="42001">ISO 42001 (AI Management)</option>
-                      <option value="22301">ISO 22301 (Business Continuity)</option>
-                      <option value="ims">IMS (Integrated Management System)</option>
-                      <option value="other">Other / Not Sure</option>
+                      <option value="ISO 9001 (Quality Management)">ISO 9001 (Quality Management)</option>
+                      <option value="ISO 27001 (Information Security)">ISO 27001 (Information Security)</option>
+                      <option value="ISO 14001 (Environmental Management)">ISO 14001 (Environmental Management)</option>
+                      <option value="ISO 45001 (Health & Safety)">ISO 45001 (Health & Safety)</option>
+                      <option value="ISO 22000 (Food Safety)">ISO 22000 (Food Safety)</option>
+                      <option value="ISO 21001 (Educational Organizations)">ISO 21001 (Educational Organizations)</option>
+                      <option value="ISO 42001 (AI Management)">ISO 42001 (AI Management)</option>
+                      <option value="ISO 22301 (Business Continuity)">ISO 22301 (Business Continuity)</option>
+                      <option value="IMS (Integrated Management System)">IMS (Integrated Management System)</option>
+                      <option value="Other / Not Sure">Other / Not Sure</option>
                     </select>
                   </div>
 
                   <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">How can we help you?</label>
+                    <label htmlFor="message" className="text-sm font-medium text-foreground">How can we help you? <span className="text-red-400">*</span></label>
                     <textarea 
                       id="message" 
                       rows={4}
+                      required
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all resize-none"
                       placeholder="Tell us a bit about your current compliance status and goals..."
                     ></textarea>
                   </div>
 
                   <div className="pt-4">
-                    <button type="submit" className="w-full group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-foreground font-medium rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.4)]">
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="w-full group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-foreground font-medium rounded-full overflow-hidden transition-all hover:scale-105 active:scale-95 shadow-[0_0_40px_rgba(37,99,235,0.4)] disabled:opacity-70 disabled:cursor-not-allowed"
+                    >
                       <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-primary to-accent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       <span className="relative flex items-center gap-2">
-                        Request Consultation <Send className="w-4 h-4" />
+                        {isSubmitting ? "Submitting..." : "Request Consultation"} <Send className="w-4 h-4" />
                       </span>
                     </button>
                   </div>

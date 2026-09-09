@@ -15,27 +15,65 @@ export const transporter = nodemailer.createTransport({
 });
 
 export const sendRegistrationEmail = async (data: any) => {
-  const companyEmail = process.env.COMPANY_EMAIL || 'admin@srimanagement.com';
+  const companyEmail = process.env.COMPANY_EMAIL || 'sri.qci@gmail.com';
   
   const mailOptions = {
     from: `"Sri Management System" <${process.env.SMTP_USER || 'noreply@srimanagement.com'}>`,
     to: companyEmail,
-    subject: `New Client Registration / Inquiry: ${data.name}`,
-    text: `A new registration has been received.\n\nType: ${data.userType === 'company' ? 'Company' : 'Individual Trainee'}\nName: ${data.name}\nEmail: ${data.email}\nPhone: +91 ${data.phone}\n${data.userType === 'company' ? `Company: ${data.company}\nService Type: ${data.serviceType}\n` : ''}Standard: ${data.standard}\nMessage: ${data.message || 'No message provided'}\n\nPlease review their registration in the dashboard.`,
+    replyTo: data.email,
+    subject: `New Registration: ${data.name} (${data.email})`,
+    text: `New Registration\n\nName: ${data.name}\nEmail: ${data.email}\nPhone: ${data.phone || 'Not provided'}\nType: ${data.userType === 'company' ? 'Company' : 'Individual Trainee'}\n${data.userType === 'company' && data.company ? `Company: ${data.company}\n` : ''}${data.serviceType ? `Service Type: ${data.serviceType}\n` : ''}Standard: ${data.standard}\nMessage: ${data.message || 'No message provided'}\n`,
     html: `
-      <h2>New Registration / Inquiry</h2>
-      <p>A new registration has been submitted on the platform.</p>
-      <ul>
-        <li><strong>Registration Type:</strong> ${data.userType === 'company' ? 'Company' : 'Individual Trainee'}</li>
-        <li><strong>Name:</strong> ${data.name}</li>
-        <li><strong>Email:</strong> ${data.email}</li>
-        <li><strong>Phone:</strong> +91 ${data.phone}</li>
-        ${data.userType === 'company' ? `<li><strong>Company:</strong> ${data.company}</li>` : ''}
-        <li><strong>Requested Standard:</strong> ${data.standard}</li>
-        ${data.userType === 'company' ? `<li><strong>Requested Service:</strong> ${data.serviceType}</li>` : ''}
-      </ul>
-      ${data.message ? `<p><strong>Additional Details:</strong><br/>${data.message}</p>` : ''}
-      <p>Please review their registration in the dashboard.</p>
+      <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 24px; color: #1e293b; max-width: 600px; background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
+        <div style="background-color: #059669; padding: 16px 20px; border-radius: 6px; margin-bottom: 20px;">
+          <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700;">New Registration</h1>
+          <p style="color: #d1fae5; margin: 4px 0 0 0; font-size: 14px;">From: <strong>${data.name}</strong> (${data.email})</p>
+        </div>
+        
+        <div style="background-color: #ffffff; padding: 20px; border-radius: 6px; border: 1px solid #e2e8f0;">
+          <table style="width: 100%; border-collapse: collapse; font-size: 15px;">
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; width: 140px; font-weight: 600;">Name:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: bold;">${data.name}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Email:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;"><a href="mailto:${data.email}" style="color: #059669; text-decoration: none; font-weight: 600;">${data.email}</a></td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Phone:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${data.phone ? `+91 ${data.phone}` : 'N/A'}</td>
+            </tr>
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Type:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${data.userType === 'company' ? 'Company' : 'Individual Trainee'}</td>
+            </tr>
+            ${data.company ? `
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Company Name:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${data.company}</td>
+            </tr>` : ''}
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Standard:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a; font-weight: 600; color: #059669;">${data.standard}</td>
+            </tr>
+            ${data.serviceType ? `
+            <tr>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #64748b; font-weight: 600;">Service Type:</td>
+              <td style="padding: 10px 0; border-bottom: 1px solid #f1f5f9; color: #0f172a;">${data.serviceType}</td>
+            </tr>` : ''}
+            ${data.message ? `
+            <tr>
+              <td style="padding: 12px 0 6px 0; color: #64748b; font-weight: 600; vertical-align: top;">Message:</td>
+              <td style="padding: 12px 0 6px 0; color: #334155; white-space: pre-wrap; line-height: 1.6;">${data.message}</td>
+            </tr>` : ''}
+          </table>
+        </div>
+
+        <p style="margin-top: 16px; font-size: 12px; color: #94a3b8; text-align: center;">
+          Sent automatically via Sri Management Consultancy registration system.
+        </p>
+      </div>
     `,
   };
 
