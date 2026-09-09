@@ -7,17 +7,43 @@ import { AnimatedButton } from "@/components/AnimatedButton";
 import { useState } from "react";
 
 export default function ContactPage() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setSubmitted(true);
+        setFormData({ name: "", email: "", phone: "", message: "" });
+      } else {
+        setErrorMessage(data.message || "Failed to send message. Please try again.");
+      }
+    } catch (err: any) {
+      setErrorMessage("A network error occurred. Please try again or call us directly.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1500);
+    }
   };
 
   return (
@@ -124,7 +150,7 @@ export default function ContactPage() {
                     <Send className="w-8 h-8 text-green-400" />
                   </div>
                   <h3 className="text-2xl font-bold text-foreground mb-2">Message Sent!</h3>
-                  <p className="text-muted-foreground">We'll get back to you as soon as possible.</p>
+                  <p className="text-muted-foreground">Thank you for reaching out. We will get back to you shortly.</p>
                   <button 
                     onClick={() => setSubmitted(false)}
                     className="mt-8 text-primary hover:underline text-sm font-medium"
@@ -134,31 +160,54 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {errorMessage && (
+                    <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                      {errorMessage}
+                    </div>
+                  )}
+
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">Your Name</label>
+                    <label className="text-sm font-medium text-foreground">Your Name <span className="text-red-400">*</span></label>
                     <input 
                       type="text" 
                       required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="John Doe"
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">Your Email</label>
+                    <label className="text-sm font-medium text-foreground">Your Email <span className="text-red-400">*</span></label>
                     <input 
                       type="email" 
                       required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="john@company.com"
+                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-foreground">Phone Number <span className="text-muted-foreground text-xs">(Optional)</span></label>
+                    <input 
+                      type="tel" 
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+91 98765 43210"
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all"
                     />
                   </div>
                   
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-foreground">Message</label>
+                    <label className="text-sm font-medium text-foreground">Message <span className="text-red-400">*</span></label>
                     <textarea 
                       required
-                      rows={5}
+                      rows={4}
+                      value={formData.message}
+                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       placeholder="How can we help you with your ISO certification?"
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/50 transition-all resize-none"
                     />
