@@ -26,10 +26,10 @@ function RegisterContent() {
 
   useEffect(() => {
     if (initialStandardParam) {
-      const formatted = initialStandardParam.toUpperCase().startsWith('ISO')
+      const formatted = initialStandardParam.toLowerCase() === 'ims'
+        ? 'IMS (Integrated Management System)'
+        : initialStandardParam.toUpperCase().startsWith('ISO')
         ? initialStandardParam.toUpperCase()
-        : initialStandardParam.toLowerCase() === 'ims'
-        ? 'Multiple / Not Sure Yet'
         : `ISO ${initialStandardParam}`;
       setFormData(prev => {
         if (prev.standard.includes(formatted)) return prev;
@@ -191,8 +191,10 @@ function RegisterContent() {
                     "ISO 50001",
                     "ISO 22000",
                     "ISO 15189",
+                    "ISO 21001",
                     "ISO 37001",
                     "ISO 42001",
+                    "IMS (Integrated Management System)",
                     "Multiple / Not Sure Yet"
                   ].map((std) => {
                     const isSelected = formData.standard.includes(std);
