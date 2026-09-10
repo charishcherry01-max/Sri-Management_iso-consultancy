@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/GlassCard";
-import { Shield, Zap, Leaf, HardHat, FileText, CheckCircle2, Utensils, GraduationCap, Bot, Layers } from "lucide-react";
+import { Shield, Zap, Leaf, HardHat, FileText, CheckCircle2, Utensils, GraduationCap, Bot, Layers, Activity } from "lucide-react";
 import { AnimatedButton } from "@/components/AnimatedButton";
 
 const standards = [
@@ -71,6 +71,17 @@ const standards = [
     borderColor: "border-emerald-500/20",
     description: "Ensure food safety across the entire supply chain with a robust Food Safety Management System (FSMS).",
     benefits: ["Food safety control", "Consumer trust", "Regulatory compliance"]
+  },
+  {
+    id: "15189",
+    title: "ISO 15189",
+    subtitle: "Medical Laboratories",
+    icon: Activity,
+    color: "text-rose-400",
+    bgColor: "bg-rose-500/10",
+    borderColor: "border-rose-500/20",
+    description: "The premier international standard for quality and competence in medical laboratories. Ensure diagnostic accuracy, patient safety, and clinical excellence.",
+    benefits: ["Accurate diagnostic results", "Patient safety & clinical trust", "Global laboratory competence"]
   },
   {
     id: "21001",
@@ -165,7 +176,7 @@ export default function StandardsPage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {standards.map((standard) => (
-            <motion.div key={standard.id} variants={itemVariants}>
+            <motion.div key={standard.id} id={standard.id} variants={itemVariants} className="scroll-mt-32">
               <GlassCard className={`h-full flex flex-col p-8 transition-all hover:scale-[1.02] duration-300 ${standard.borderColor}`}>
                 <div className="flex items-start justify-between mb-6">
                   <div className={`w-14 h-14 rounded-2xl ${standard.bgColor} flex items-center justify-center border ${standard.borderColor}`}>

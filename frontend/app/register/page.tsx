@@ -1,11 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { GlassCard } from "@/components/GlassCard";
 import { AnimatedButton } from "@/components/AnimatedButton";
 import { UserPlus, CheckCircle2, Loader2, AlertCircle, Phone, Building2, User, ChevronDown, ChevronUp } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
-export default function RegisterPage() {
+function RegisterContent() {
+  const searchParams = useSearchParams();
+  const initialStandardParam = searchParams.get('standard');
+
   const [formData, setFormData] = useState({ 
     userType: 'company', // 'company' or 'individual'
     name: '', 
@@ -19,6 +23,20 @@ export default function RegisterPage() {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   const [showStandards, setShowStandards] = useState(false);
+
+  useEffect(() => {
+    if (initialStandardParam) {
+      const formatted = initialStandardParam.toUpperCase().startsWith('ISO')
+        ? initialStandardParam.toUpperCase()
+        : initialStandardParam.toLowerCase() === 'ims'
+        ? 'Multiple / Not Sure Yet'
+        : `ISO ${initialStandardParam}`;
+      setFormData(prev => {
+        if (prev.standard.includes(formatted)) return prev;
+        return { ...prev, standard: [...prev.standard, formatted] };
+      });
+    }
+  }, [initialStandardParam]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -172,6 +190,7 @@ export default function RegisterPage() {
                     "ISO 22301",
                     "ISO 50001",
                     "ISO 22000",
+                    "ISO 15189",
                     "ISO 37001",
                     "ISO 42001",
                     "Multiple / Not Sure Yet"
@@ -245,5 +264,13 @@ export default function RegisterPage() {
         )}
       </GlassCard>
     </div>
+  );
+}
+
+export default function RegisterPage() {
+  return (
+    <Suspense fallback={<div className="pt-32 pb-20 min-h-screen text-center text-muted-foreground">Loading...</div>}>
+      <RegisterContent />
+    </Suspense>
   );
 }

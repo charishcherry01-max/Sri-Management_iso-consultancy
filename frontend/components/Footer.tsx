@@ -62,15 +62,16 @@ export const Footer = () => {
           <div>
             <h3 className="font-heading font-semibold text-white mb-4">Standards</h3>
             <ul className="space-y-3">
-              <li><Link href="/standards/9001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 9001</Link></li>
-              <li><Link href="/standards/14001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 14001</Link></li>
-              <li><Link href="/standards/45001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 45001</Link></li>
-              <li><Link href="/standards/27001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 27001</Link></li>
-              <li><Link href="/standards/22301" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 22301</Link></li>
-              <li><Link href="/standards/50001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 50001</Link></li>
-              <li><Link href="/standards/22000" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 22000</Link></li>
-              <li><Link href="/standards/37001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 37001</Link></li>
-              <li><Link href="/standards/42001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 42001</Link></li>
+              <li><Link href="/standards#9001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 9001</Link></li>
+              <li><Link href="/standards#14001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 14001</Link></li>
+              <li><Link href="/standards#45001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 45001</Link></li>
+              <li><Link href="/standards#27001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 27001</Link></li>
+              <li><Link href="/standards#22301" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 22301</Link></li>
+              <li><Link href="/standards#22000" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 22000</Link></li>
+              <li><Link href="/standards#15189" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 15189</Link></li>
+              <li><Link href="/standards#21001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 21001</Link></li>
+              <li><Link href="/standards#42001" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO 42001</Link></li>
+              <li><Link href="/standards#ims" className="text-sm text-muted-foreground hover:text-white transition-colors">IMS</Link></li>
             </ul>
           </div>
 

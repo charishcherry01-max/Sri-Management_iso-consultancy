@@ -186,6 +186,7 @@ export default function ConsultationPage() {
                       <option value="ISO 14001 (Environmental Management)">ISO 14001 (Environmental Management)</option>
                       <option value="ISO 45001 (Health & Safety)">ISO 45001 (Health & Safety)</option>
                       <option value="ISO 22000 (Food Safety)">ISO 22000 (Food Safety)</option>
+                      <option value="ISO 15189 (Medical Laboratories)">ISO 15189 (Medical Laboratories)</option>
                       <option value="ISO 21001 (Educational Organizations)">ISO 21001 (Educational Organizations)</option>
                       <option value="ISO 42001 (AI Management)">ISO 42001 (AI Management)</option>
                       <option value="ISO 22301 (Business Continuity)">ISO 22301 (Business Continuity)</option>
