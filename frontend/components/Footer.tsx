@@ -53,9 +53,11 @@ export const Footer = () => {
           <div>
             <h3 className="font-heading font-semibold text-white mb-4">Solutions</h3>
             <ul className="space-y-3">
-              <li><Link href="/services/training" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO Training</Link></li>
-              <li><Link href="/services/documentation" className="text-sm text-muted-foreground hover:text-white transition-colors">Documentation</Link></li>
-              <li><Link href="/services/audit" className="text-sm text-muted-foreground hover:text-white transition-colors">Internal Audits</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-white transition-colors">Consultancy & Services</Link></li>
+              <li><Link href="/training" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO Training Modules</Link></li>
+              <li><Link href="/services" className="text-sm text-muted-foreground hover:text-white transition-colors">Gap Analysis & Audits</Link></li>
+              <li><Link href="/consultation" className="text-sm text-muted-foreground hover:text-white transition-colors">Book Free Consultation</Link></li>
+              <li><Link href="/register" className="text-sm text-muted-foreground hover:text-white transition-colors">Register Company / Trainee</Link></li>
             </ul>
           </div>
 

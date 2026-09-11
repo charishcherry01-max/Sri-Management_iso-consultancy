@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased bg-background text-foreground min-h-screen flex flex-col`}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} antialiased text-foreground min-h-screen flex flex-col`}>
         <SmoothScrollProvider>
           <Navbar />
           <main className="flex-1">{children}</main>

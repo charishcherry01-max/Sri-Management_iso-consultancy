@@ -5,6 +5,8 @@ import { AnimatedButton } from "@/components/AnimatedButton";
 import { GlassCard } from "@/components/GlassCard";
 import { CheckCircle2, Shield, Zap, Award, Globe, Users, TrendingUp } from "lucide-react";
 import Link from "next/link";
+import { RoadmapSection } from "@/components/RoadmapSection";
+import { FaqSection } from "@/components/FaqSection";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -136,6 +138,11 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Step-by-Step Certification Roadmap */}
+      <RoadmapSection />
+
+      {/* Frequently Asked Questions */}
+      <FaqSection />
 
       {/* CTA Section */}
       <section className="container mx-auto px-4 mt-32">
