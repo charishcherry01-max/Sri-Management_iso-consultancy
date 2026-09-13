@@ -27,9 +27,15 @@ export const Footer = () => {
               <a href="tel:+918179629984" className="text-sm text-muted-foreground hover:text-primary transition-colors">+91 81796 29984</a>
             </div>
             <div className="flex gap-4 mb-6">
-              <Link href="#" aria-label="Instagram" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href="https://www.instagram.com/sri_management/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Instagram" 
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Instagram className="w-5 h-5" />
-              </Link>
+              </a>
               <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook className="w-5 h-5" />
               </Link>
