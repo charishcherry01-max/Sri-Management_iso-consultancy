@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Sparkles, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { Bell, Sparkles, ArrowRight, ChevronDown, ChevronUp, Maximize2, X } from "lucide-react";
 import Link from "next/link";
 
 interface Announcement {
@@ -32,6 +32,28 @@ export const HeroNoticeCard = () => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false);
+
+  // Close modal on Escape key press & prevent background scroll
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsImageModalOpen(false);
+      }
+    };
+
+    if (isImageModalOpen) {
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isImageModalOpen]);
 
   useEffect(() => {
     let isMounted = true;
@@ -100,9 +122,13 @@ export const HeroNoticeCard = () => {
             </div>
           </div>
 
-          {/* Flyer / Poster Image */}
+          {/* Flyer / Poster Image with Click to Enlarge */}
           {hasNotice && announcement?.imageUrl && !imageError && (
-            <div className="relative w-full rounded-2xl overflow-hidden border border-white/15 bg-black/60 shadow-lg min-h-[160px] max-h-64 flex items-center justify-center">
+            <div 
+              onClick={() => setIsImageModalOpen(true)}
+              className="relative w-full rounded-2xl overflow-hidden border border-white/15 bg-black/60 shadow-lg min-h-[160px] max-h-64 flex items-center justify-center cursor-zoom-in group transition-all duration-300 hover:border-primary/50"
+              title="Click to view full screen"
+            >
               {!imageLoaded && (
                 <div className="absolute inset-0 bg-white/5 animate-pulse rounded-2xl" />
               )}
@@ -111,10 +137,16 @@ export const HeroNoticeCard = () => {
                 alt={announcement.title || "Daily Notice"}
                 onLoad={() => setImageLoaded(true)}
                 onError={() => setImageError(true)}
-                className={`w-full h-auto max-h-64 object-contain rounded-2xl transition-opacity duration-300 ${
+                className={`w-full h-auto max-h-64 object-contain rounded-2xl transition-all duration-300 group-hover:scale-[1.03] ${
                   imageLoaded ? "opacity-100" : "opacity-0"
                 }`}
               />
+
+              {/* Hover Badge: "Click to Enlarge" */}
+              <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded-lg bg-black/70 backdrop-blur-md text-white/90 text-xs font-medium border border-white/20 flex items-center gap-1.5 opacity-90 group-hover:opacity-100 group-hover:bg-primary group-hover:text-primary-foreground transition-all shadow-md">
+                <Maximize2 className="w-3.5 h-3.5" />
+                <span>Enlarge</span>
+              </div>
             </div>
           )}
 
@@ -171,6 +203,68 @@ export const HeroNoticeCard = () => {
           </Link>
         </div>
       </div>
+
+      {/* Full-Screen Image Lightbox Modal */}
+      <AnimatePresence>
+        {isImageModalOpen && announcement?.imageUrl && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setIsImageModalOpen(false)}
+            className="fixed inset-0 z-[999] flex flex-col items-center justify-center bg-black/92 backdrop-blur-md p-4 sm:p-6 md:p-8 cursor-zoom-out"
+          >
+            {/* Top Control Bar */}
+            <div 
+              onClick={(e) => e.stopPropagation()}
+              className="w-full max-w-5xl flex items-center justify-between pb-3 mb-2 border-b border-white/10"
+            >
+              <div className="flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
+                <span className="text-xs font-semibold text-primary uppercase tracking-wider">Notice Image</span>
+                <span className="text-xs text-white/50 hidden sm:inline">• {announcement.title || "Sri Management"}</span>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => setIsImageModalOpen(false)}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-semibold border border-white/20 transition-all active:scale-95 shadow-lg"
+                title="Close (Esc)"
+              >
+                <X className="w-4 h-4" />
+                <span>Close (Esc)</span>
+              </button>
+            </div>
+
+            {/* Enlarged Image Container */}
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative max-w-5xl max-h-[82vh] flex items-center justify-center cursor-default"
+            >
+              <img
+                src={announcement.imageUrl}
+                alt={announcement.title || "Notice Flyer"}
+                className="max-w-full max-h-[82vh] w-auto h-auto object-contain rounded-2xl border border-white/20 shadow-[0_25px_80px_rgba(0,0,0,0.9)] select-none bg-black/40"
+              />
+            </motion.div>
+
+            {/* Bottom Caption */}
+            {announcement.title && (
+              <div 
+                onClick={(e) => e.stopPropagation()}
+                className="mt-3 text-center text-sm font-medium text-white/80 max-w-2xl px-4"
+              >
+                {announcement.title}
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
