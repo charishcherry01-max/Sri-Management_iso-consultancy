@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { AnimatedButton } from "@/components/AnimatedButton";
-import { CheckCircle2, Award } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { RoadmapSection } from "@/components/RoadmapSection";
 import { FaqSection } from "@/components/FaqSection";
+import { HeroNoticeCard } from "@/components/HeroNoticeCard";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -65,33 +66,9 @@ export default function Home() {
             </motion.div>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="relative z-10 hidden lg:block"
-          >
-            <div className="relative w-full aspect-square">
-
-              <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ repeat: Infinity, duration: 40, ease: "linear" }}
-                className="absolute inset-10 rounded-full border border-white/10 border-dashed"
-              />
-              <motion.div
-                animate={{ rotate: -360 }}
-                transition={{ repeat: Infinity, duration: 60, ease: "linear" }}
-                className="absolute inset-20 rounded-full border border-primary/20"
-              />
-              
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-48 h-48 rounded-full bg-gradient-to-tr from-primary to-accent blur-[40px] opacity-50" />
-                <div className="w-32 h-32 rounded-full glass border border-white/20 flex items-center justify-center shadow-[0_0_80px_rgba(37,99,235,0.4)]">
-                  <Award className="w-16 h-16 text-foreground" />
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <div className="relative z-10 w-full flex justify-center items-center">
+            <HeroNoticeCard />
+          </div>
         </div>
       </section>
 
