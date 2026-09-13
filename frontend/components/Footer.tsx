@@ -36,9 +36,15 @@ export const Footer = () => {
               >
                 <Instagram className="w-5 h-5" />
               </a>
-              <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href="https://www.facebook.com/profile.php?id=100084193336484" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="Facebook" 
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Facebook className="w-5 h-5" />
-              </Link>
+              </a>
               <a 
                 href="https://www.linkedin.com/in/shipalinagaraju/" 
                 target="_blank" 
