@@ -2,8 +2,7 @@
 
 import { motion } from "framer-motion";
 import { GlassCard } from "@/components/GlassCard";
-import { Search, FileText, ClipboardCheck, Award, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import Link from "next/link";
+import { Search, FileText, ClipboardCheck, Award, CheckCircle2, Sparkles } from "lucide-react";
 
 const steps = [
   {
@@ -140,21 +139,6 @@ export const RoadmapSection = () => {
           );
         })}
       </motion.div>
-
-      {/* Action Prompt */}
-      <div className="mt-12 text-center relative z-10">
-        <div className="inline-flex flex-wrap items-center justify-center gap-4 p-4 rounded-2xl glass border border-white/10 max-w-2xl mx-auto">
-          <span className="text-sm text-muted-foreground">
-            Have an upcoming tender or compliance deadline?
-          </span>
-          <Link
-            href="/register"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors"
-          >
-            Get a Customized Timeline <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </div>
     </section>
   );
 };
