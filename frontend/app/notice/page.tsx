@@ -11,7 +11,10 @@ import {
   Eye, 
   Lock, 
   Sparkles, 
-  RefreshCw 
+  RefreshCw,
+  ChevronDown,
+  ChevronUp,
+  ArrowRight
 } from "lucide-react";
 
 export default function NoticeAdminPage() {
@@ -23,6 +26,7 @@ export default function NoticeAdminPage() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [previewExpanded, setPreviewExpanded] = useState(false);
 
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -346,24 +350,25 @@ export default function NoticeAdminPage() {
                 <span>Live Preview (How visitors see it)</span>
               </div>
 
-              <div className="bg-[#0a1426] border border-primary/30 rounded-3xl p-6 shadow-2xl space-y-4">
+              <div className="bg-[#081226] border border-primary/30 rounded-3xl p-6 shadow-2xl space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-white/10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/15 border border-primary/30 text-primary text-xs font-semibold">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/20 border border-primary/40 text-primary text-xs font-bold tracking-wide">
                     <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
                     <Bell className="w-3.5 h-3.5" />
-                    <span>Daily Announcement</span>
+                    <span>DAILY UPDATE</span>
                   </div>
-                  <span className="text-xs px-2 py-1 rounded bg-white/10 text-muted-foreground font-mono">
-                    ✕
-                  </span>
+                  <div className="flex items-center gap-1.5 text-xs text-muted-foreground font-medium">
+                    <Sparkles className="w-3.5 h-3.5 text-accent" />
+                    <span>Notice Board</span>
+                  </div>
                 </div>
 
                 {imageUrl && (
-                  <div className="rounded-2xl overflow-hidden border border-white/10 bg-black/40">
+                  <div className="rounded-2xl overflow-hidden border border-white/15 bg-black/50 max-h-56 flex items-center justify-center">
                     <img 
                       src={imageUrl} 
                       alt="Preview" 
-                      className="w-full h-48 object-contain rounded-2xl" 
+                      className="w-full h-auto max-h-56 object-contain rounded-2xl" 
                     />
                   </div>
                 )}
@@ -372,15 +377,28 @@ export default function NoticeAdminPage() {
                   <h4 className="text-lg font-heading font-bold text-foreground leading-snug">
                     {title || "Notice Title will appear here"}
                   </h4>
-                  <p className="text-sm text-muted-foreground mt-2 whitespace-pre-line leading-relaxed">
-                    {message || "Notice message and description will appear here..."}
-                  </p>
+                  <div className="mt-2">
+                    <p className={`text-sm text-muted-foreground whitespace-pre-line leading-relaxed transition-all duration-300 ${!previewExpanded && (message.length > 140 || message.split('\n').length > 3) ? "line-clamp-3" : ""}`}>
+                      {message || "Notice message and description will appear here..."}
+                    </p>
+                    {(message.length > 140 || message.split('\n').length > 3) && (
+                      <button
+                        type="button"
+                        onClick={() => setPreviewExpanded(!previewExpanded)}
+                        className="mt-2.5 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent bg-primary/10 px-3 py-1 rounded-xl border border-primary/30"
+                      >
+                        <span>{previewExpanded ? "Show Less" : "Read Full Notice"}</span>
+                        {previewExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                      </button>
+                    )}
+                  </div>
                 </div>
 
-                <div className="pt-2">
-                  <div className="w-full py-2.5 rounded-xl bg-primary/20 border border-primary/30 text-primary text-center text-xs font-semibold">
-                    Close Notice
-                  </div>
+                <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+                  <span className="text-primary font-semibold flex items-center gap-1">
+                    Inquire About This <ArrowRight className="w-3.5 h-3.5" />
+                  </span>
+                  <span className="text-muted-foreground">Contact Office →</span>
                 </div>
               </div>
 

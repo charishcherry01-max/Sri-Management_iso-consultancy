@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Bell, Sparkles, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Bell, Sparkles, ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 
 interface Announcement {
@@ -16,6 +16,7 @@ interface Announcement {
 export const HeroNoticeCard = () => {
   const [announcement, setAnnouncement] = useState<Announcement | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {
     const fetchNotice = async () => {
@@ -38,6 +39,13 @@ export const HeroNoticeCard = () => {
   }, []);
 
   const hasNotice = announcement && (announcement.title || announcement.message || announcement.imageUrl);
+
+  const displayedMessage = hasNotice && announcement?.message
+    ? announcement.message
+    : "Welcome to Sri Management. Check here daily for upcoming ISO training batches, audit schedules, and important announcements.";
+
+  // Determine if message is long enough to warrant a dropdown / expand toggle
+  const isLongMessage = displayedMessage.length > 140 || displayedMessage.split('\n').length > 3;
 
   return (
     <motion.div
@@ -86,12 +94,32 @@ export const HeroNoticeCard = () => {
               {hasNotice && announcement?.title ? announcement.title : "Sri Management Notice Board"}
             </h3>
 
-            {/* Message Body */}
-            <p className="text-sm sm:text-base text-muted-foreground mt-3 whitespace-pre-line leading-relaxed">
-              {hasNotice && announcement?.message
-                ? announcement.message
-                : "Welcome to Sri Management. Check here daily for upcoming ISO training batches, audit schedules, and important announcements."}
-            </p>
+            {/* Message Body with Read More Dropdown */}
+            <div className="mt-3">
+              <p
+                className={`text-sm sm:text-base text-muted-foreground whitespace-pre-line leading-relaxed transition-all duration-300 ${
+                  !isExpanded && isLongMessage ? "line-clamp-3" : ""
+                }`}
+              >
+                {displayedMessage}
+              </p>
+
+              {/* Dropdown Toggle Button for Long Text */}
+              {isLongMessage && (
+                <button
+                  type="button"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:text-accent transition-all bg-primary/10 hover:bg-primary/20 px-3.5 py-1.5 rounded-xl border border-primary/30 shadow-sm"
+                >
+                  <span>{isExpanded ? "Show Less" : "Read Full Notice"}</span>
+                  {isExpanded ? (
+                    <ChevronUp className="w-3.5 h-3.5 transition-transform duration-200" />
+                  ) : (
+                    <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" />
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
