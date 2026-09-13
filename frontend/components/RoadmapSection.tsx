@@ -47,7 +47,7 @@ const steps = [
     color: "text-amber-400",
     bgColor: "bg-amber-500/10",
     borderColor: "border-amber-500/20",
-    description: "We coordinate and support you through Stage 1 & Stage 2 audits with accredited certification registrars (IAF / NABCB registered) until official certificate issuance.",
+    description: "We coordinate and support you through Stage 1 & Stage 2 audits with accredited certification registrars (IAF, NABCB, JAS-ANZ, etc. registered) until official certificate issuance.",
     highlights: ["Stage 1 & Stage 2 Audit Support", "Accredited 3-Year ISO Certificate", "Surveillance Audit Maintenance"]
   }
 ];

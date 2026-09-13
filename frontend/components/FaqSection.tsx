@@ -26,7 +26,7 @@ const faqs: FaqItem[] = [
   },
   {
     question: "Does Sri Management issue the final certification?",
-    answer: "In accordance with international accreditation guidelines (such as ISO/IEC 17021), consulting firms cannot certify their own advisory work to preserve impartiality. Sri Management acts as your expert advisory and lead auditor partner—we design your procedures, conduct internal audits, and guide your team through Stage 1 & Stage 2 audits with independent, globally recognized certification bodies (IAF & NABCB recognized) until issuance."
+    answer: "In accordance with international accreditation guidelines (such as ISO/IEC 17021), consulting firms cannot certify their own advisory work to preserve impartiality. Sri Management acts as your expert advisory and lead auditor partner—we design your procedures, conduct internal audits, and guide your team through Stage 1 & Stage 2 audits with independent, globally recognized certification bodies (IAF, NABCB, JAS-ANZ, etc. recognized) until issuance."
   },
   {
     question: "Can the consultation and training be delivered completely remotely?",

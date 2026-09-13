@@ -39,7 +39,7 @@ export default function TermsPage() {
               2. Independent Accreditation & Certification Role
             </h2>
             <p className="text-muted-foreground leading-relaxed text-sm">
-              Sri Management operates as an independent consultancy and training organization. In strict accordance with international accreditation guidelines (such as ISO/IEC 17021), final certification audits are conducted by independent third-party certification bodies registered with global accreditation forums (e.g., IAF, NABCB). Sri Management prepares the client, provides audit liaison, and assists in closing out corrective actions.
+              Sri Management operates as an independent consultancy and training organization. In strict accordance with international accreditation guidelines (such as ISO/IEC 17021), final certification audits are conducted by independent third-party certification bodies registered with global accreditation forums (e.g., IAF, NABCB, JAS-ANZ, etc.). Sri Management prepares the client, provides audit liaison, and assists in closing out corrective actions.
             </p>
           </section>
 
