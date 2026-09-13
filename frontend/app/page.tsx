@@ -2,9 +2,7 @@
 
 import { motion } from "framer-motion";
 import { AnimatedButton } from "@/components/AnimatedButton";
-import { GlassCard } from "@/components/GlassCard";
-import { CheckCircle2, Shield, Zap, Award, Globe, Users, TrendingUp } from "lucide-react";
-import Link from "next/link";
+import { CheckCircle2, Award } from "lucide-react";
 import { RoadmapSection } from "@/components/RoadmapSection";
 import { FaqSection } from "@/components/FaqSection";
 
@@ -74,47 +72,6 @@ export default function Home() {
             className="relative z-10 hidden lg:block"
           >
             <div className="relative w-full aspect-square">
-              {/* Floating Glass UI Elements */}
-              <motion.div
-                animate={{ y: [-10, 10, -10] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                className="absolute top-10 right-10 z-20 w-64"
-              >
-                <GlassCard className="p-4 border-primary/20 bg-black/40">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                      <Shield className="w-5 h-5 text-green-400" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-foreground">ISO 27001</div>
-                      <div className="text-xs text-green-400">100% Compliant</div>
-                    </div>
-                  </div>
-                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-green-400 w-full rounded-full" />
-                  </div>
-                </GlassCard>
-              </motion.div>
-
-              <motion.div
-                animate={{ y: [15, -15, 15] }}
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1 }}
-                className="absolute bottom-20 left-0 z-20 w-72"
-              >
-                <GlassCard className="p-4 border-accent/20 bg-black/40">
-                  <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
-                      <Zap className="w-5 h-5 text-accent" />
-                    </div>
-                    <div>
-                      <div className="text-sm font-bold text-foreground mb-1">AI Assistant</div>
-                      <div className="text-xs text-muted-foreground leading-relaxed">
-                        Generating Risk Assessment Policy based on ISO 9001:2015 standards...
-                      </div>
-                    </div>
-                  </div>
-                </GlassCard>
-              </motion.div>
 
               <motion.div
                 animate={{ rotate: 360 }}
