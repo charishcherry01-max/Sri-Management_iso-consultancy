@@ -39,9 +39,15 @@ export const Footer = () => {
               <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">
                 <Facebook className="w-5 h-5" />
               </Link>
-              <Link href="#" aria-label="LinkedIn" className="text-muted-foreground hover:text-primary transition-colors">
+              <a 
+                href="https://www.linkedin.com/in/shipalinagaraju/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label="LinkedIn" 
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
                 <Linkedin className="w-5 h-5" />
-              </Link>
+              </a>
             </div>
             <div className="w-full h-40 rounded-lg overflow-hidden border border-white/10">
               <iframe 
