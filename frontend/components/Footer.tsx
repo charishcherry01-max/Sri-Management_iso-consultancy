@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Twitter, Linkedin, Github } from "lucide-react";
+import { Instagram, Facebook, Linkedin } from "lucide-react";
 import Image from "next/image";
 
 export const Footer = () => {
@@ -27,14 +27,14 @@ export const Footer = () => {
               <a href="tel:+918179629984" className="text-sm text-muted-foreground hover:text-primary transition-colors">+91 81796 29984</a>
             </div>
             <div className="flex gap-4 mb-6">
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="w-5 h-5" />
+              <Link href="#" aria-label="Instagram" className="text-muted-foreground hover:text-primary transition-colors">
+                <Instagram className="w-5 h-5" />
               </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="#" aria-label="Facebook" className="text-muted-foreground hover:text-primary transition-colors">
+                <Facebook className="w-5 h-5" />
+              </Link>
+              <Link href="#" aria-label="LinkedIn" className="text-muted-foreground hover:text-primary transition-colors">
                 <Linkedin className="w-5 h-5" />
-              </Link>
-              <Link href="#" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="w-5 h-5" />
               </Link>
             </div>
             <div className="w-full h-40 rounded-lg overflow-hidden border border-white/10">
