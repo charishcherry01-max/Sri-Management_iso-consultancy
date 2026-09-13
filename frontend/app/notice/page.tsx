@@ -70,14 +70,38 @@ export default function NoticeAdminPage() {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 4 * 1024 * 1024) {
-      alert("Image is too large! Please choose an image under 4MB.");
-      return;
-    }
-
     const reader = new FileReader();
     reader.onload = (event) => {
-      setImageUrl(event.target?.result as string);
+      const rawResult = event.target?.result as string;
+      const img = new window.Image();
+      img.onload = () => {
+        const maxWidth = 1200;
+        const maxHeight = 1200;
+        let { width, height } = img;
+
+        if (width > maxWidth || height > maxHeight) {
+          if (width > height) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          } else {
+            width = Math.round((width * maxHeight) / height);
+            height = maxHeight;
+          }
+        }
+
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext("2d");
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressed = canvas.toDataURL("image/jpeg", 0.85);
+          setImageUrl(compressed);
+        } else {
+          setImageUrl(rawResult);
+        }
+      };
+      img.src = rawResult;
     };
     reader.readAsDataURL(file);
   };
@@ -110,8 +134,9 @@ export default function NoticeAdminPage() {
       const result = await res.json();
       if (result.success) {
         setStatusMessage({ type: "success", text: "Notice updated successfully! It is now live on the website." });
-        // Clear session storage so testing on localhost shows the updated notice
-        sessionStorage.clear();
+        try {
+          localStorage.setItem("sri_hero_notice_v1", JSON.stringify(result.data));
+        } catch (e) {}
       } else {
         setStatusMessage({ type: "error", text: result.message || "Failed to update notice." });
       }
