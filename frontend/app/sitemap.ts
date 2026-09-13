@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: 'https://www.srimanagement.in/consultation',
+      url: 'https://www.srimanagement.in/register',
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,

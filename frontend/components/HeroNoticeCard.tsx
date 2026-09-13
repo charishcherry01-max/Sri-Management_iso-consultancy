@@ -188,7 +188,7 @@ export const HeroNoticeCard = () => {
         {/* Action Footer */}
         <div className="relative z-10 pt-5 mt-4 border-t border-white/10 flex items-center justify-between gap-4">
           <Link
-            href="/consultation"
+            href="/register"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors group"
           >
             <span>Inquire About This</span>

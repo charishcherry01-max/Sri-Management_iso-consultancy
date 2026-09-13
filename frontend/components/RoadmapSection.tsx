@@ -148,7 +148,7 @@ export const RoadmapSection = () => {
             Have an upcoming tender or compliance deadline?
           </span>
           <Link
-            href="/consultation"
+            href="/register"
             className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent transition-colors"
           >
             Get a Customized Timeline <ArrowRight className="w-4 h-4" />

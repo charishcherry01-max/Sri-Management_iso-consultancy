@@ -74,8 +74,8 @@ export const Footer = () => {
               <li><Link href="/services" className="text-sm text-muted-foreground hover:text-white transition-colors">Consultancy & Services</Link></li>
               <li><Link href="/training" className="text-sm text-muted-foreground hover:text-white transition-colors">ISO Training Modules</Link></li>
               <li><Link href="/services" className="text-sm text-muted-foreground hover:text-white transition-colors">Gap Analysis & Audits</Link></li>
-              <li><Link href="/consultation" className="text-sm text-muted-foreground hover:text-white transition-colors">Book Free Consultation</Link></li>
               <li><Link href="/register" className="text-sm text-muted-foreground hover:text-white transition-colors">Register Company / Trainee</Link></li>
+              <li><Link href="/contact" className="text-sm text-muted-foreground hover:text-white transition-colors">Contact Our Auditors</Link></li>
             </ul>
           </div>
 

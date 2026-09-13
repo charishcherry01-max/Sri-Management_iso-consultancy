@@ -7,6 +7,11 @@ const nextConfig = {
         destination: '/standards#:id',
         permanent: false,
       },
+      {
+        source: '/consultation',
+        destination: '/register',
+        permanent: true,
+      },
     ];
   },
 };
