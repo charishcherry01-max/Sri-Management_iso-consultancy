@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bell, Sparkles, ArrowRight, ChevronDown, ChevronUp, Maximize2, X } from "lucide-react";
+import { Bell, Sparkles, ArrowRight, ChevronDown, ChevronUp, Maximize2, X, ExternalLink, Link2 } from "lucide-react";
 import Link from "next/link";
 
 interface Announcement {
@@ -10,8 +10,35 @@ interface Announcement {
   title: string;
   message: string;
   imageUrl?: string;
+  linkUrl?: string;
+  linkText?: string;
   updatedAt: string;
 }
+
+const renderFormattedMessage = (text: string) => {
+  const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+)/g;
+  const parts = text.split(urlRegex);
+
+  return parts.map((part, index) => {
+    if (part.match(urlRegex)) {
+      const href = part.startsWith("http") ? part : `https://${part}`;
+      return (
+        <a
+          key={index}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="text-primary hover:text-accent font-semibold underline underline-offset-2 break-all hover:opacity-90 transition-colors inline-flex items-center gap-0.5 mx-0.5"
+        >
+          <span>{part}</span>
+          <ExternalLink className="w-3 h-3 inline-block shrink-0" />
+        </a>
+      );
+    }
+    return <span key={index}>{part}</span>;
+  });
+};
 
 const CACHE_KEY = "sri_hero_notice_v1";
 
@@ -163,7 +190,7 @@ export const HeroNoticeCard = () => {
                   !isExpanded && isLongMessage ? "line-clamp-3" : "max-h-80 overflow-y-auto pr-1"
                 }`}
               >
-                {displayedMessage}
+                {renderFormattedMessage(displayedMessage)}
               </div>
 
               {/* Read More Dropdown Button */}
@@ -180,6 +207,28 @@ export const HeroNoticeCard = () => {
                     <ChevronDown className="w-3.5 h-3.5 transition-transform duration-200" />
                   )}
                 </button>
+              )}
+
+              {/* Dedicated Call-to-Action Link Button */}
+              {hasNotice && announcement?.linkUrl && (
+                <div className="mt-4 pt-1">
+                  <a
+                    href={
+                      announcement.linkUrl.startsWith("http://") || 
+                      announcement.linkUrl.startsWith("https://") || 
+                      announcement.linkUrl.startsWith("/")
+                        ? announcement.linkUrl
+                        : `https://${announcement.linkUrl}`
+                    }
+                    target={announcement.linkUrl.startsWith("/") ? "_self" : "_blank"}
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-5 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:shadow-primary/30 transition-all active:scale-[0.98] group/btn"
+                  >
+                    <Link2 className="w-4 h-4 shrink-0" />
+                    <span className="truncate">{announcement.linkText?.trim() || "Open Notice Link"}</span>
+                    <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                  </a>
+                </div>
               )}
             </div>
           </div>

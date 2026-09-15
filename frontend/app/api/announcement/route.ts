@@ -10,6 +10,8 @@ const DEFAULT_ANNOUNCEMENT = {
   title: "Welcome to Sri Management",
   message: "We provide AI-driven ISO certification consulting, corporate training, and gap audits. Speak with our lead auditors today to get started!",
   imageUrl: "",
+  linkUrl: "",
+  linkText: "",
   updatedAt: new Date().toISOString()
 };
 
@@ -102,7 +104,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { title, message, imageUrl, active, password } = body;
+    const { title, message, imageUrl, linkUrl, linkText, active, password } = body;
 
     const validPin = process.env.NOTICE_PIN || '1234';
     if (password !== validPin) {
@@ -117,6 +119,8 @@ export async function POST(request: Request) {
       title: (title || '').trim(),
       message: (message || '').trim(),
       imageUrl: (imageUrl || '').trim(),
+      linkUrl: (linkUrl || '').trim(),
+      linkText: (linkText || '').trim(),
       updatedAt: new Date().toISOString()
     };
 
