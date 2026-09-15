@@ -12,6 +12,7 @@ interface Announcement {
   imageUrl?: string;
   linkUrl?: string;
   linkText?: string;
+  links?: { url: string; text: string }[];
   updatedAt: string;
 }
 
@@ -209,25 +210,48 @@ export const HeroNoticeCard = () => {
                 </button>
               )}
 
-              {/* Dedicated Call-to-Action Link Button */}
-              {hasNotice && announcement?.linkUrl && (
-                <div className="mt-4 pt-1">
-                  <a
-                    href={
-                      announcement.linkUrl.startsWith("http://") || 
-                      announcement.linkUrl.startsWith("https://") || 
-                      announcement.linkUrl.startsWith("/")
-                        ? announcement.linkUrl
-                        : `https://${announcement.linkUrl}`
-                    }
-                    target={announcement.linkUrl.startsWith("/") ? "_self" : "_blank"}
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-5 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:shadow-primary/30 transition-all active:scale-[0.98] group/btn"
-                  >
-                    <Link2 className="w-4 h-4 shrink-0" />
-                    <span className="truncate">{announcement.linkText?.trim() || "Open Notice Link"}</span>
-                    <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                  </a>
+              {/* Dedicated Call-to-Action Link Buttons */}
+              {hasNotice && (announcement?.linkUrl || (announcement?.links && announcement.links.some(l => l.url.trim() !== ""))) && (
+                <div className="mt-4 pt-1 flex flex-col sm:flex-row flex-wrap gap-3">
+                  {/* Legacy Fallback */}
+                  {announcement?.linkUrl && (!announcement.links || announcement.links.filter(l => l.url.trim() !== "").length === 0) && (
+                    <a
+                      href={
+                        announcement.linkUrl.startsWith("http://") || 
+                        announcement.linkUrl.startsWith("https://") || 
+                        announcement.linkUrl.startsWith("/")
+                          ? announcement.linkUrl
+                          : `https://${announcement.linkUrl}`
+                      }
+                      target={announcement.linkUrl.startsWith("/") ? "_self" : "_blank"}
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:shadow-primary/30 transition-all active:scale-[0.98] group/btn"
+                    >
+                      <Link2 className="w-4 h-4 shrink-0" />
+                      <span className="truncate">{announcement.linkText?.trim() || "Open Notice Link"}</span>
+                      <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </a>
+                  )}
+                  {/* New Multiple Links */}
+                  {announcement?.links?.filter(l => l.url.trim() !== "").map((link, idx) => (
+                    <a
+                      key={idx}
+                      href={
+                        link.url.startsWith("http://") || 
+                        link.url.startsWith("https://") || 
+                        link.url.startsWith("/")
+                          ? link.url
+                          : `https://${link.url}`
+                      }
+                      target={link.url.startsWith("/") ? "_self" : "_blank"}
+                      rel="noopener noreferrer"
+                      className="inline-flex flex-1 items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:shadow-primary/30 transition-all active:scale-[0.98] group/btn"
+                    >
+                      <Link2 className="w-4 h-4 shrink-0" />
+                      <span className="truncate">{link.text?.trim() || "Open Notice Link"}</span>
+                      <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </a>
+                  ))}
                 </div>
               )}
             </div>

@@ -12,6 +12,7 @@ const DEFAULT_ANNOUNCEMENT = {
   imageUrl: "",
   linkUrl: "",
   linkText: "",
+  links: [],
   updatedAt: new Date().toISOString()
 };
 
@@ -104,7 +105,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { title, message, imageUrl, linkUrl, linkText, active, password } = body;
+    const { title, message, imageUrl, linkUrl, linkText, links, active, password } = body;
 
     const validPin = process.env.NOTICE_PIN || '1234';
     if (password !== validPin) {
@@ -121,6 +122,7 @@ export async function POST(request: Request) {
       imageUrl: (imageUrl || '').trim(),
       linkUrl: (linkUrl || '').trim(),
       linkText: (linkText || '').trim(),
+      links: Array.isArray(links) ? links : [],
       updatedAt: new Date().toISOString()
     };
 
