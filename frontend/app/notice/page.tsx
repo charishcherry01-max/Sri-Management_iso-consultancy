@@ -561,11 +561,11 @@ export default function NoticeAdminPage() {
                 )}
 
                 <div>
-                  <h4 className="text-lg font-heading font-bold text-foreground leading-snug">
+                  <h4 className="text-lg font-heading font-extrabold text-foreground tracking-tight leading-snug">
                     {title || "Notice Title will appear here"}
                   </h4>
                   <div className="mt-2">
-                    <div className={`text-sm text-muted-foreground whitespace-pre-line leading-relaxed transition-all duration-300 ${!previewExpanded && (message.length > 140 || message.split('\n').length > 3) ? "line-clamp-3" : ""}`}>
+                    <div className={`text-sm text-foreground/90 whitespace-pre-line leading-relaxed transition-all duration-300 ${!previewExpanded && (message.length > 140 || message.split('\n').length > 3) ? "line-clamp-3" : ""}`}>
                       {renderFormattedMessage(message || "Notice message and description will appear here...")}
                     </div>
                     {(message.length > 140 || message.split('\n').length > 3) && (
@@ -591,13 +591,20 @@ export default function NoticeAdminPage() {
                           </div>
                         )}
                         {/* New Multiple Links */}
-                        {links.filter(l => l.url.trim() !== "").map((link, idx) => (
-                          <div key={idx} className="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-primary to-accent text-primary-foreground font-semibold text-xs shadow-md">
-                            <Link2 className="w-3.5 h-3.5 shrink-0" />
-                            <span className="truncate">{link.text?.trim() || "Open Notice Link"}</span>
-                            <ExternalLink className="w-3 h-3 shrink-0 opacity-80" />
-                          </div>
-                        ))}
+                        {links.filter(l => l.url.trim() !== "").map((link, idx) => {
+                          const isPrimary = idx === 0;
+                          return (
+                            <div key={idx} className={`inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl font-semibold text-xs shadow-md ${
+                              isPrimary 
+                                ? "bg-gradient-to-r from-primary to-accent text-primary-foreground"
+                                : "bg-transparent border-2 border-primary/50 text-primary"
+                            }`}>
+                              <Link2 className="w-3.5 h-3.5 shrink-0" />
+                              <span className="truncate">{link.text?.trim() || "Open Notice Link"}</span>
+                              <ExternalLink className={`w-3 h-3 shrink-0 ${isPrimary ? 'opacity-80' : 'opacity-60'}`} />
+                            </div>
+                          );
+                        })}
                       </div>
                     )}
                   </div>

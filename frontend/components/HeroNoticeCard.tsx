@@ -131,7 +131,7 @@ export const HeroNoticeCard = () => {
       <div className="absolute -inset-1 bg-gradient-to-r from-primary/30 to-accent/30 rounded-[2rem] blur-xl opacity-70 pointer-events-none" />
 
       {/* Main Glass Card */}
-      <div className="relative rounded-[2rem] glass border border-primary/40 bg-[#081226]/95 p-6 sm:p-8 shadow-[0_16px_50px_rgba(0,0,0,0.6)] backdrop-blur-2xl flex flex-col justify-between overflow-hidden">
+      <div className="relative rounded-[2rem] bg-[#0a1122] border border-primary/30 p-6 sm:p-8 shadow-[0_20px_60px_rgba(0,0,0,0.7)] backdrop-blur-3xl flex flex-col justify-between overflow-hidden">
         {/* Ambient interior light */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/15 blur-[60px] rounded-full pointer-events-none" />
 
@@ -180,14 +180,14 @@ export const HeroNoticeCard = () => {
 
           {/* Title & Message */}
           <div>
-            <h3 className="text-xl sm:text-2xl font-heading font-bold text-foreground leading-snug">
+            <h3 className="text-xl sm:text-2xl font-heading font-extrabold text-foreground tracking-tight leading-snug">
               {displayedTitle}
             </h3>
 
             {/* Message Body with Smooth Expand / Collapse */}
             <div className="mt-3">
               <div
-                className={`text-sm sm:text-base text-muted-foreground whitespace-pre-line leading-relaxed transition-all duration-300 ${
+                className={`text-sm sm:text-base text-foreground/90 whitespace-pre-line leading-relaxed transition-all duration-300 ${
                   !isExpanded && isLongMessage ? "line-clamp-3" : "max-h-80 overflow-y-auto pr-1"
                 }`}
               >
@@ -233,25 +233,32 @@ export const HeroNoticeCard = () => {
                     </a>
                   )}
                   {/* New Multiple Links */}
-                  {announcement?.links?.filter(l => l.url.trim() !== "").map((link, idx) => (
-                    <a
-                      key={idx}
-                      href={
-                        link.url.startsWith("http://") || 
-                        link.url.startsWith("https://") || 
-                        link.url.startsWith("/")
-                          ? link.url
-                          : `https://${link.url}`
-                      }
-                      target={link.url.startsWith("/") ? "_self" : "_blank"}
-                      rel="noopener noreferrer"
-                      className="inline-flex flex-1 items-center justify-center gap-2 py-2.5 px-5 rounded-xl bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground font-semibold text-xs sm:text-sm shadow-md hover:shadow-primary/30 transition-all active:scale-[0.98] group/btn"
-                    >
-                      <Link2 className="w-4 h-4 shrink-0" />
-                      <span className="truncate">{link.text?.trim() || "Open Notice Link"}</span>
-                      <ExternalLink className="w-3.5 h-3.5 shrink-0 opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
-                    </a>
-                  ))}
+                  {announcement?.links?.filter(l => l.url.trim() !== "").map((link, idx) => {
+                    const isPrimary = idx === 0;
+                    return (
+                      <a
+                        key={idx}
+                        href={
+                          link.url.startsWith("http://") || 
+                          link.url.startsWith("https://") || 
+                          link.url.startsWith("/")
+                            ? link.url
+                            : `https://${link.url}`
+                        }
+                        target={link.url.startsWith("/") ? "_self" : "_blank"}
+                        rel="noopener noreferrer"
+                        className={`inline-flex flex-1 items-center justify-center gap-2 py-2.5 px-5 rounded-xl font-semibold text-xs sm:text-sm shadow-md transition-all active:scale-[0.98] group/btn ${
+                          isPrimary 
+                            ? "bg-gradient-to-r from-primary to-accent hover:opacity-95 text-primary-foreground hover:shadow-primary/30"
+                            : "bg-transparent border-2 border-primary/50 text-primary hover:bg-primary/10 hover:border-primary"
+                        }`}
+                      >
+                        <Link2 className="w-4 h-4 shrink-0" />
+                        <span className="truncate">{link.text?.trim() || "Open Notice Link"}</span>
+                        <ExternalLink className={`w-3.5 h-3.5 shrink-0 transition-transform ${isPrimary ? 'opacity-80 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5' : 'opacity-60'}`} />
+                      </a>
+                    );
+                  })}
                 </div>
               )}
             </div>
