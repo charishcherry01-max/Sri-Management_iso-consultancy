@@ -428,7 +428,7 @@ export default function StandardsPage() {
                           <standard.icon className={`w-6 h-6 ${standard.color}`} />
                         </div>
                         <div>
-                          <h3 className="text-xl font-heading font-extrabold text-foreground group-hover:text-primary transition-colors">
+                          <h3 className="text-xl font-heading font-extrabold text-foreground group-hover:text-blue-300 transition-colors">
                             {standard.title}
                           </h3>
                           <span className="text-xs text-muted-foreground font-medium block">

@@ -13,14 +13,14 @@
     --popover: 222 47% 6%;
     --popover-foreground: 0 0% 100%;
     
-    --primary: 221 83% 53%; /* Blue: #2563EB */
-    --primary-foreground: 0 0% 100%;
+    --primary: 221 83% 58%; /* High-contrast Vivid Blue */
+    --primary-foreground: 0 0% 100%; /* Pure White text on blue buttons */
     
     --secondary: 217 91% 20%; /* Dark blue */
     --secondary-foreground: 0 0% 100%;
     
     --muted: 216 20% 15%;
-    --muted-foreground: 215 20% 75%;
+    --muted-foreground: 215 25% 82%; /* Ultra-readable muted text */
     
     --accent: 214 100% 68%; /* Light Blue */
     --accent-foreground: 222 47% 6%;

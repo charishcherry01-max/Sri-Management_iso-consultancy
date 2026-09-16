@@ -127,37 +127,37 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-all duration-300",
           isScrolled
-            ? "glass py-2.5 border-b border-primary/20 shadow-xl backdrop-blur-xl"
-            : "bg-transparent py-4 border-b border-white/5"
+            ? "bg-[#081226]/95 border-b border-primary/40 shadow-2xl backdrop-blur-2xl py-2.5"
+            : "bg-[#081226]/85 border-b border-white/10 backdrop-blur-xl py-3.5"
         )}
       >
         {/* Top Mini Contact Strip (Desktop only) */}
-        <div className="container mx-auto px-4 pb-2 hidden lg:flex items-center justify-between text-[11px] text-muted-foreground border-b border-white/5 mb-2">
+        <div className="container mx-auto px-4 pb-2 hidden lg:flex items-center justify-between text-[11px] text-slate-300 border-b border-white/10 mb-2">
           <div className="flex items-center gap-6">
-            <a href="tel:+918977402032" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-              <Phone className="w-3 h-3 text-primary" />
-              <span>+91 89774 02032</span>
+            <a href="tel:+918977402032" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Phone className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">+91 89774 02032</span>
             </a>
-            <a href="mailto:sri.isoofficial@gmail.com" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-              <Mail className="w-3 h-3 text-primary" />
-              <span>sri.isoofficial@gmail.com</span>
+            <a href="mailto:sri.isoofficial@gmail.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Mail className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">sri.isoofficial@gmail.com</span>
             </a>
             <span className="flex items-center gap-1.5">
-              <MapPin className="w-3 h-3 text-primary" />
-              <span>Hyderabad, Telangana</span>
+              <MapPin className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">Hyderabad, Telangana</span>
             </span>
           </div>
 
           <div className="flex items-center gap-4">
             <Link 
               href="/notice" 
-              className="inline-flex items-center gap-1 text-primary hover:text-accent font-semibold transition-colors"
+              className="inline-flex items-center gap-1.5 text-primary hover:text-accent font-bold transition-colors"
             >
-              <Bell className="w-3 h-3" />
+              <Bell className="w-3.5 h-3.5" />
               <span>Daily Notice Portal</span>
             </Link>
             <span className="text-white/20">•</span>
-            <span className="text-emerald-400 font-medium">● 100% Audit Pass Guarantee</span>
+            <span className="text-emerald-400 font-bold">● 100% Audit Pass Guarantee</span>
           </div>
         </div>
 
@@ -174,10 +174,10 @@ export const Navbar = () => {
               />
             </div>
             <div>
-              <span className="text-lg sm:text-xl font-heading font-extrabold tracking-tight text-foreground block leading-none">
+              <span className="text-lg sm:text-xl font-heading font-extrabold tracking-tight text-white block leading-none">
                 Sri Management
               </span>
-              <span className="text-[10px] tracking-wider text-muted-foreground uppercase font-semibold block mt-0.5">
+              <span className="text-[10px] tracking-wider text-slate-300 uppercase font-bold block mt-0.5">
                 ISO Consultancy & Training
               </span>
             </div>
@@ -189,10 +189,10 @@ export const Navbar = () => {
             <Link
               href="/"
               className={cn(
-                "relative px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                "relative px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                 isActive("/")
-                  ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                  : "text-slate-100 hover:text-white hover:bg-white/10"
               )}
             >
               Home
@@ -202,10 +202,10 @@ export const Navbar = () => {
             <Link
               href="/about"
               className={cn(
-                "relative px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                "relative px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                 isActive("/about")
-                  ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                  : "text-slate-100 hover:text-white hover:bg-white/10"
               )}
             >
               About Us
@@ -220,14 +220,14 @@ export const Navbar = () => {
               <Link
                 href="/standards"
                 className={cn(
-                  "relative inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                  "relative inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                   isActive("/standards")
-                    ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                    : "text-slate-100 hover:text-white hover:bg-white/10"
                 )}
               >
                 <span>Standards</span>
-                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", standardsOpen ? "rotate-180 text-primary" : "")} />
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", standardsOpen ? "rotate-180 text-white" : "")} />
               </Link>
 
               {/* Mega Dropdown Panel */}
@@ -238,9 +238,9 @@ export const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[720px] max-w-[90vw] z-50"
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-[720px] max-w-[90vw] z-[100]"
                   >
-                    <div className="glass border border-primary/30 rounded-3xl p-6 shadow-[0_20px_60px_rgba(0,0,0,0.8)] bg-[#070f22]/98 backdrop-blur-2xl">
+                    <div className="bg-[#081226] border border-primary/40 rounded-3xl p-6 shadow-[0_25px_80px_rgba(0,0,0,0.95)] relative z-[100]">
                       <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
                         <div className="flex items-center gap-2">
                           <span className="flex h-2 w-2 rounded-full bg-primary animate-ping" />
@@ -311,14 +311,14 @@ export const Navbar = () => {
               <Link
                 href="/services"
                 className={cn(
-                  "relative inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                  "relative inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                   isActive("/services")
-                    ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                    : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                    ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                    : "text-slate-100 hover:text-white hover:bg-white/10"
                 )}
               >
                 <span>Services</span>
-                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", servicesOpen ? "rotate-180 text-primary" : "")} />
+                <ChevronDown className={cn("w-3.5 h-3.5 transition-transform duration-200", servicesOpen ? "rotate-180 text-white" : "")} />
               </Link>
 
               {/* Services Dropdown Panel */}
@@ -329,9 +329,9 @@ export const Navbar = () => {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 8, scale: 0.98 }}
                     transition={{ duration: 0.18 }}
-                    className="absolute top-full left-0 pt-3 w-80 z-50"
+                    className="absolute top-full left-0 pt-3 w-80 z-[100]"
                   >
-                    <div className="glass border border-primary/30 rounded-2xl p-4 shadow-[0_20px_50px_rgba(0,0,0,0.8)] bg-[#070f22]/98 backdrop-blur-2xl space-y-1.5">
+                    <div className="bg-[#081226] border border-primary/40 rounded-2xl p-4 shadow-[0_25px_80px_rgba(0,0,0,0.95)] space-y-1.5 relative z-[100]">
                       {servicesDropdown.map((service, idx) => (
                         <Link
                           key={idx}
@@ -361,10 +361,10 @@ export const Navbar = () => {
             <Link
               href="/training"
               className={cn(
-                "relative px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                "relative px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                 isActive("/training")
-                  ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                  : "text-slate-100 hover:text-white hover:bg-white/10"
               )}
             >
               Training
@@ -374,10 +374,10 @@ export const Navbar = () => {
             <Link
               href="/contact"
               className={cn(
-                "relative px-3.5 py-1.5 rounded-full text-xs lg:text-sm font-semibold transition-all duration-200",
+                "relative px-4 py-2 rounded-full text-xs lg:text-sm font-bold transition-all duration-200",
                 isActive("/contact")
-                  ? "text-primary bg-primary/15 border border-primary/30 shadow-[0_0_15px_rgba(59,130,246,0.15)]"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                  ? "text-white bg-primary border border-primary/60 shadow-lg shadow-primary/25"
+                  : "text-slate-100 hover:text-white hover:bg-white/10"
               )}
             >
               Contact
@@ -386,8 +386,13 @@ export const Navbar = () => {
 
           {/* Right Action Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <AnimatedButton href="/register" size="sm" className="px-5 py-2 text-xs font-bold">
-              Book Free Gap Audit
+            <AnimatedButton 
+              href="/register" 
+              size="sm" 
+              className="px-5 py-2 text-xs font-extrabold text-white bg-gradient-to-r from-primary to-blue-600 hover:from-blue-600 hover:to-primary border border-white/20 shadow-lg shadow-primary/30 hover:shadow-primary/50 transition-all rounded-full"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-yellow-300" />
+              <span>Apply for ISO</span>
             </AnimatedButton>
           </div>
 
@@ -529,8 +534,12 @@ export const Navbar = () => {
             </Link>
 
             <div className="mt-auto pt-4 flex flex-col gap-3">
-              <AnimatedButton href="/register" className="w-full justify-center">
-                Book Free Gap Audit
+              <AnimatedButton 
+                href="/register" 
+                className="w-full justify-center text-white font-extrabold bg-gradient-to-r from-primary to-blue-600 border border-white/20 shadow-lg shadow-primary/30"
+              >
+                <Sparkles className="w-4 h-4 text-yellow-300" />
+                <span>Apply for ISO</span>
               </AnimatedButton>
               <div className="flex items-center justify-center gap-4 text-xs text-muted-foreground pt-2">
                 <a href="tel:+918977402032" className="flex items-center gap-1">

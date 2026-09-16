@@ -86,44 +86,52 @@ function RegisterContent() {
             )}
 
             <div className="space-y-3">
-              <label className="text-sm font-medium text-foreground">Are you registering as a Company or Individual Trainee?</label>
+              <label className="text-sm font-bold text-foreground">Are you registering as a Company or Individual Trainee?</label>
               <div className="grid grid-cols-2 gap-4">
                 <button 
                   type="button"
                   onClick={() => setFormData({...formData, userType: 'company', serviceType: 'both'})}
-                  className={`flex items-center justify-center space-x-3 cursor-pointer p-4 rounded-lg border transition-colors ${formData.userType === 'company' ? 'border-primary bg-primary/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  className={`flex items-center justify-center space-x-3 cursor-pointer p-4 rounded-xl border transition-all ${
+                    formData.userType === 'company' 
+                      ? 'border-primary/80 bg-primary/25 ring-1 ring-primary/60 shadow-lg shadow-primary/20' 
+                      : 'border-white/10 bg-white/5 hover:bg-white/10'
+                  }`}
                 >
-                  <Building2 className={`w-5 h-5 ${formData.userType === 'company' ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <span className={`text-sm font-medium ${formData.userType === 'company' ? 'text-primary' : 'text-foreground'}`}>Company</span>
+                  <Building2 className={`w-5 h-5 ${formData.userType === 'company' ? 'text-blue-300' : 'text-slate-400'}`} />
+                  <span className={`text-sm font-bold ${formData.userType === 'company' ? 'text-white' : 'text-slate-300'}`}>Company</span>
                 </button>
                 <button 
                   type="button"
                   onClick={() => setFormData({...formData, userType: 'individual', company: '', serviceType: 'training'})}
-                  className={`flex items-center justify-center space-x-3 cursor-pointer p-4 rounded-lg border transition-colors ${formData.userType === 'individual' ? 'border-primary bg-primary/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                  className={`flex items-center justify-center space-x-3 cursor-pointer p-4 rounded-xl border transition-all ${
+                    formData.userType === 'individual' 
+                      ? 'border-primary/80 bg-primary/25 ring-1 ring-primary/60 shadow-lg shadow-primary/20' 
+                      : 'border-white/10 bg-white/5 hover:bg-white/10'
+                  }`}
                 >
-                  <User className={`w-5 h-5 ${formData.userType === 'individual' ? 'text-primary' : 'text-muted-foreground'}`} />
-                  <span className={`text-sm font-medium ${formData.userType === 'individual' ? 'text-primary' : 'text-foreground'}`}>Individual Trainee</span>
+                  <User className={`w-5 h-5 ${formData.userType === 'individual' ? 'text-blue-300' : 'text-slate-400'}`} />
+                  <span className={`text-sm font-bold ${formData.userType === 'individual' ? 'text-white' : 'text-slate-300'}`}>Individual Trainee</span>
                 </button>
               </div>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Full Name</label>
+                <label className="text-sm font-bold text-foreground">Full Name</label>
                 <input 
                   required 
                   type="text" 
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" 
+                  className="w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/60 transition-all font-medium" 
                   placeholder="Rahul Sharma" 
                 />
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Phone Number</label>
+                <label className="text-sm font-bold text-foreground">Phone Number</label>
                 <div className="relative flex items-center">
-                  <span className="absolute left-4 text-muted-foreground font-medium">+91</span>
+                  <span className="absolute left-4 text-slate-300 font-bold">+91</span>
                   <input 
                     required 
                     type="tel" 
@@ -131,7 +139,7 @@ function RegisterContent() {
                     title="Please enter a valid 10-digit Indian mobile number"
                     value={formData.phone}
                     onChange={(e) => setFormData({...formData, phone: e.target.value.replace(/\D/g, '').slice(0, 10)})}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg pl-12 pr-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" 
+                    className="w-full bg-black/40 border border-white/15 rounded-xl pl-14 pr-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/60 transition-all font-medium" 
                     placeholder="98765 43210" 
                   />
                 </div>
@@ -140,26 +148,26 @@ function RegisterContent() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground">Email Address</label>
+                <label className="text-sm font-bold text-foreground">Email Address</label>
                 <input 
                   required 
                   type="email" 
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" 
+                  className="w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/60 transition-all font-medium" 
                   placeholder="rahul@domain.in" 
                 />
               </div>
               
               {formData.userType === 'company' && (
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-foreground">Company Name</label>
+                  <label className="text-sm font-bold text-foreground">Company Name</label>
                   <input 
                     required={formData.userType === 'company'}
                     type="text" 
                     value={formData.company}
                     onChange={(e) => setFormData({...formData, company: e.target.value})}
-                    className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all" 
+                    className="w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary/60 transition-all font-medium" 
                     placeholder="Tech Solutions Pvt Ltd" 
                   />
                 </div>
@@ -167,21 +175,21 @@ function RegisterContent() {
             </div>
 
             <div className="space-y-3">
-              <label className="text-sm font-medium text-foreground">Which ISO standard are you interested in?</label>
+              <label className="text-sm font-bold text-foreground">Which ISO standard are you interested in?</label>
               
               <button 
                 type="button"
                 onClick={() => setShowStandards(!showStandards)}
-                className="flex items-center justify-between w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-foreground cursor-pointer hover:bg-white/10 transition-colors"
+                className="flex items-center justify-between w-full bg-black/40 border border-white/15 rounded-xl px-4 py-3 text-white cursor-pointer hover:bg-white/10 transition-colors"
               >
-                <span className={`truncate mr-2 ${formData.standard.length > 0 ? 'text-primary font-medium' : 'text-muted-foreground'}`}>
+                <span className={`truncate mr-2 ${formData.standard.length > 0 ? 'text-blue-300 font-bold' : 'text-slate-400 font-medium'}`}>
                   {formData.standard.length > 0 ? formData.standard.join(', ') : "Select ISO standards..."}
                 </span>
-                {showStandards ? <ChevronUp className="w-5 h-5 text-muted-foreground shrink-0 ml-2" /> : <ChevronDown className="w-5 h-5 text-muted-foreground shrink-0 ml-2" />}
+                {showStandards ? <ChevronUp className="w-5 h-5 text-slate-300 shrink-0 ml-2" /> : <ChevronDown className="w-5 h-5 text-slate-300 shrink-0 ml-2" />}
               </button>
 
               {showStandards && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 p-3 bg-black/20 border border-white/10 rounded-lg max-h-[300px] overflow-y-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-2 p-3 bg-black/40 border border-white/15 rounded-xl max-h-[300px] overflow-y-auto">
                   {[
                     "ISO 9001",
                     "ISO 14001",
@@ -211,12 +219,12 @@ function RegisterContent() {
                           }
                           setFormData({...formData, standard: newStandards});
                         }}
-                        className={`w-full text-left flex items-center space-x-3 cursor-pointer p-3 rounded-lg border transition-colors ${isSelected ? 'border-primary bg-primary/10' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
+                        className={`w-full text-left flex items-center space-x-3 cursor-pointer p-3 rounded-lg border transition-colors ${isSelected ? 'border-primary/80 bg-primary/25' : 'border-white/10 bg-white/5 hover:bg-white/10'}`}
                       >
-                        <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-primary text-primary-foreground' : 'border-muted-foreground'}`}>
-                          {isSelected && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-3 h-3"><polyline points="20 6 9 17 4 12"></polyline></svg>}
+                        <div className={`w-4 h-4 rounded-sm border flex items-center justify-center shrink-0 ${isSelected ? 'border-primary bg-primary text-white' : 'border-slate-400'}`}>
+                          {isSelected && <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-3 h-3 text-white"><polyline points="20 6 9 17 4 12"></polyline></svg>}
                         </div>
-                        <span className={`text-sm ${isSelected ? 'text-primary font-medium' : 'text-foreground'}`}>{std}</span>
+                        <span className={`text-sm ${isSelected ? 'text-blue-300 font-bold' : 'text-slate-200'}`}>{std}</span>
                       </button>
                     );
                   })}
