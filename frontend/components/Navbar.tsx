@@ -127,62 +127,41 @@ export const Navbar = () => {
         className={cn(
           "fixed top-0 inset-x-0 z-50 transition-all duration-300",
           isScrolled
-            ? "bg-[#081226]/95 border-b border-primary/40 shadow-2xl backdrop-blur-2xl"
-            : "bg-[#081226]/90 border-b border-white/10 backdrop-blur-xl"
+            ? "bg-[#081226]/95 border-b border-primary/40 shadow-2xl backdrop-blur-2xl py-2.5"
+            : "bg-[#081226]/85 border-b border-white/10 backdrop-blur-xl py-3.5"
         )}
       >
-        {/* Sleek Top Notification & Direct Contact Bar */}
-        <div className="w-full bg-gradient-to-r from-blue-950/95 via-slate-900/95 to-indigo-950/95 border-b border-primary/30 backdrop-blur-md py-1.5 px-3 sm:px-6">
-          <div className="container mx-auto flex flex-wrap items-center justify-between gap-2 text-[11px] sm:text-xs">
-            {/* Direct Lead Auditor Hotline */}
-            <a 
-              href="tel:+918977402032" 
-              className="inline-flex items-center gap-1.5 text-slate-200 hover:text-white transition-colors group py-0.5"
-              title="Call Lead Auditor Directly"
-            >
-              <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-              <span className="font-semibold text-primary group-hover:text-accent">📞 Direct Lead Auditor Line:</span>
-              <span className="font-bold text-white tracking-wide underline underline-offset-2 decoration-primary/40 group-hover:decoration-accent">+91 89774 02032</span>
+        {/* Top Mini Contact Strip (Desktop only) */}
+        <div className="container mx-auto px-4 pb-2 hidden lg:flex items-center justify-between text-[11px] text-slate-300 border-b border-white/10 mb-2">
+          <div className="flex items-center gap-6">
+            <a href="tel:+918977402032" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Phone className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">+91 89774 02032</span>
             </a>
+            <a href="mailto:sri.isoofficial@gmail.com" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Mail className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">sri.isoofficial@gmail.com</span>
+            </a>
+            <span className="flex items-center gap-1.5">
+              <MapPin className="w-3.5 h-3.5 text-primary" />
+              <span className="font-medium text-slate-200">Hyderabad, Telangana</span>
+            </span>
+          </div>
 
-            {/* Fast-Track 21-Day Turnaround Available */}
-            <div className="hidden sm:inline-flex items-center gap-2">
-              <span className="text-white/20 hidden md:inline">•</span>
-              <Link 
-                href="/register" 
-                className="inline-flex items-center gap-1 font-semibold text-amber-300 hover:text-amber-200 bg-amber-500/10 hover:bg-amber-500/20 px-2.5 py-0.5 rounded-full border border-amber-500/30 transition-all shadow-sm"
-              >
-                <span>⏱️ Fast-Track 21-Day Turnaround Available</span>
-              </Link>
-              <span className="text-white/20 hidden md:inline">•</span>
-            </div>
-
-            {/* Instant WhatsApp Support */}
-            <div className="flex items-center gap-3">
-              <a
-                href="https://wa.me/918977402032?text=Hello%20Sri%20Management%2C%20I%20would%20like%20to%20inquire%20about%20ISO%20Certification%20and%20Auditing."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 font-bold text-emerald-400 hover:text-emerald-300 transition-colors bg-emerald-500/10 hover:bg-emerald-500/20 px-2.5 py-0.5 rounded-full border border-emerald-500/30 shadow-sm"
-                title="Chat on WhatsApp"
-              >
-                <span>💬 Instant WhatsApp Support</span>
-              </a>
-
-              <Link 
-                href="/notice" 
-                className="hidden lg:inline-flex items-center gap-1 text-[11px] font-bold text-primary hover:text-accent transition-colors ml-1"
-                title="View Notice Board"
-              >
-                <Bell className="w-3 h-3" />
-                <span>Notice Board</span>
-              </Link>
-            </div>
+          <div className="flex items-center gap-4">
+            <Link 
+              href="/notice" 
+              className="inline-flex items-center gap-1.5 text-primary hover:text-accent font-bold transition-colors"
+            >
+              <Bell className="w-3.5 h-3.5" />
+              <span>Daily Notice Portal</span>
+            </Link>
+            <span className="text-white/20">•</span>
+            <span className="text-emerald-400 font-bold">● 100% Audit Pass Guarantee</span>
           </div>
         </div>
 
-        {/* Main Navigation Bar */}
-        <div className={cn("container mx-auto px-4 flex items-center justify-between transition-all duration-300", isScrolled ? "py-2.5" : "py-3")}>
+        <div className="container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative p-1 rounded-xl bg-white shadow-md transition-transform group-hover:scale-105">

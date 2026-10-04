@@ -24,8 +24,7 @@ import {
   Award,
   HelpCircle,
   X,
-  PhoneCall,
-  Building2
+  PhoneCall
 } from "lucide-react";
 import { AnimatedButton } from "@/components/AnimatedButton";
 
@@ -206,93 +205,7 @@ const standards: StandardItem[] = [
     description: "Combines Quality, Environmental, and Health & Safety management systems into one unified policy and single auditing process, saving up to 40% on audit fees.",
     benefits: ["Single streamlined audit", "Save 40% on consultancy fees", "Total operational governance"],
     industries: ["Large Corporates", "EPC & Infrastructure", "Manufacturing", "Export Houses"]
-  },
-  {
-    id: "20000",
-    code: "ISO/IEC 20000-1:2018",
-    title: "ISO 20000",
-    subtitle: "IT Service Management System (ITSMS)",
-    category: "tech",
-    tag: "ITIL & SLA Governance",
-    timeline: "3–5 Weeks",
-    icon: Zap,
-    color: "text-sky-400",
-    bgColor: "bg-sky-500/10",
-    borderColor: "border-sky-500/20",
-    description: "The global benchmark for IT service delivery. Establishes ITIL-aligned service quality, customer SLA governance, incident management, and digital workflow stability.",
-    benefits: ["Strict SLA reliability & customer retention", "Global enterprise IT vendor eligibility", "Aligned with ITIL framework best practices"],
-    industries: ["IT Services & MSPs", "SaaS & Cloud Platforms", "Data Centers", "Telecom"]
-  },
-  {
-    id: "13485",
-    code: "ISO 13485:2016",
-    title: "ISO 13485",
-    subtitle: "Medical Devices Quality Management (MD-QMS)",
-    category: "quality",
-    tag: "MDR & Clinical Safety",
-    timeline: "4–6 Weeks",
-    icon: Activity,
-    color: "text-teal-400",
-    bgColor: "bg-teal-500/10",
-    borderColor: "border-teal-500/20",
-    description: "Mandatory international standard for medical device design, manufacturing, distribution, and installation. Ensures patient safety, risk management, and CDSCO/FDA traceability.",
-    benefits: ["Mandatory for CDSCO / CE medical approvals", "Full lifecycle risk management (ISO 14971)", "Global medical device supply chain entry"],
-    industries: ["Medical Device Manufacturers", "Diagnostic Equipment", "Surgical Supplies", "Biomedical Labs"]
-  },
-  {
-    id: "haccp",
-    code: "HACCP System",
-    title: "HACCP",
-    subtitle: "Hazard Analysis Critical Control Point",
-    category: "specialized",
-    tag: "Food Safety Benchmark",
-    timeline: "2–4 Weeks",
-    icon: Utensils,
-    color: "text-amber-400",
-    bgColor: "bg-amber-500/10",
-    borderColor: "border-amber-500/20",
-    description: "Systematic preventative approach to physical, chemical, and biological hazards in food handling. Ensures end-to-end safety from raw material sourcing to consumer delivery.",
-    benefits: ["Pre-requisite for food export & retail contracts", "Eliminates food contamination & recall risks", "Seamless compatibility with ISO 22000"],
-    industries: ["Food Processing", "Hotels & Commercial Kitchens", "Beverages & Dairy", "Food Packaging"]
   }
-];
-
-const sectorFilters = [
-  { 
-    id: "all", 
-    label: "All Sectors", 
-    emoji: "🌐",
-    standards: [] as string[],
-    tagline: "Explore our full catalog of international ISO accreditations" 
-  },
-  { 
-    id: "mfg", 
-    label: "Manufacturing & Engineering", 
-    emoji: "⚙️", 
-    standards: ["9001", "14001", "45001", "ims"],
-    tagline: "QMS, Environmental compliance & Worker health safety for manufacturing plants & engineering firms" 
-  },
-  { 
-    id: "it", 
-    label: "IT, SaaS & AI", 
-    emoji: "💻", 
-    standards: ["27001", "42001", "20000", "22301"],
-    tagline: "Information security, ISO AI governance, ITSMS & business continuity for tech scale-ups" 
-  },
-  { 
-    id: "health", 
-    label: "Healthcare & Medical Devices", 
-    emoji: "🏥", 
-    standards: ["13485", "9001", "15189"],
-    tagline: "Medical device regulatory compliance, hospital QMS & clinical laboratory competence" 
-  },
-  { 
-    id: "food", 
-    label: "Food & Hospitality", 
-    emoji: "🍽️", 
-    standards: ["22000", "haccp"],
-    tagline: "Food safety management, HACCP hazard control & FSSAI / export chain compliance" 
-  },
 ];
 
 const industryOptions = [
@@ -317,23 +230,13 @@ export default function StandardsPage() {
   const [activeTab, setActiveTab] = useState<"catalog" | "wizard">("catalog");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [selectedSector, setSelectedSector] = useState<string>("all");
 
   const [wizardIndustry, setWizardIndustry] = useState<string>("");
   const [wizardObjective, setWizardObjective] = useState<string>("");
 
   const filteredStandards = useMemo(() => {
     return standards.filter((item) => {
-      // Industry Sector Filter
-      const sectorObj = sectorFilters.find(s => s.id === selectedSector);
-      const matchesSector = 
-        selectedSector === "all" || 
-        (sectorObj ? sectorObj.standards.includes(item.id) : true);
-
-      // Category Filter
       const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
-
-      // Text Search
       const query = searchQuery.toLowerCase().trim();
       const matchesSearch = 
         !query ||
@@ -344,9 +247,9 @@ export default function StandardsPage() {
         item.benefits.some(b => b.toLowerCase().includes(query)) ||
         item.industries.some(i => i.toLowerCase().includes(query));
 
-      return matchesSector && matchesCategory && matchesSearch;
+      return matchesCategory && matchesSearch;
     });
-  }, [selectedSector, selectedCategory, searchQuery]);
+  }, [selectedCategory, searchQuery]);
 
   const recommendedStandards = useMemo(() => {
     if (!wizardIndustry) return [];
@@ -438,94 +341,7 @@ export default function StandardsPage() {
             transition={{ duration: 0.3 }}
             className="space-y-8"
           >
-            {/* Sector / Industry Based Filter */}
-            <div className="glass rounded-3xl p-5 sm:p-6 border border-white/10 shadow-xl space-y-4">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                <div className="flex items-center gap-2.5">
-                  <div className="p-2.5 rounded-2xl bg-primary/20 text-primary border border-primary/30">
-                    <Building2 className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="text-base font-heading font-extrabold text-foreground flex items-center gap-2">
-                      <span>Filter by Industry Sector</span>
-                      <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded-full bg-primary/20 text-primary border border-primary/30">
-                        Tailored Compliance
-                      </span>
-                    </h3>
-                    <p className="text-xs text-muted-foreground">
-                      Click your business sector to view recommended mandatory & high-demand ISO standards
-                    </p>
-                  </div>
-                </div>
-
-                {selectedSector !== "all" && (
-                  <button
-                    onClick={() => setSelectedSector("all")}
-                    className="self-start sm:self-auto text-xs text-primary hover:text-accent font-bold flex items-center gap-1.5 bg-primary/10 hover:bg-primary/20 px-3 py-1.5 rounded-xl border border-primary/20 transition-all active:scale-95"
-                  >
-                    <span>View All Sectors</span>
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                )}
-              </div>
-
-              {/* Sector Option Buttons */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 pt-1">
-                {sectorFilters.map((sector) => {
-                  const isSelected = selectedSector === sector.id;
-                  return (
-                    <button
-                      key={sector.id}
-                      onClick={() => setSelectedSector(sector.id)}
-                      className={`p-3.5 rounded-2xl text-left border transition-all duration-300 relative group flex flex-col justify-between ${
-                        isSelected
-                          ? "bg-primary/25 border-primary text-white shadow-xl shadow-primary/25 ring-1 ring-primary/60 scale-[1.02]"
-                          : "bg-black/30 border-white/10 text-muted-foreground hover:text-white hover:bg-white/[0.05] hover:border-primary/50"
-                      }`}
-                    >
-                      <div className="flex items-center justify-between gap-1 mb-2.5">
-                        <span className="text-2xl">{sector.emoji}</span>
-                        {sector.id !== "all" ? (
-                          <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full transition-colors ${
-                            isSelected 
-                              ? "bg-primary text-primary-foreground font-extrabold" 
-                              : "bg-white/10 text-slate-300 group-hover:bg-primary/20 group-hover:text-primary"
-                          }`}>
-                            {sector.standards.length} ISOs
-                          </span>
-                        ) : (
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-white/10 text-slate-300">
-                            All
-                          </span>
-                        )}
-                      </div>
-                      <span className={`text-xs font-bold leading-snug block ${
-                        isSelected ? "text-white" : "text-slate-200 group-hover:text-white"
-                      }`}>
-                        {sector.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Active Sector Callout */}
-              {selectedSector !== "all" && (
-                <div className="p-3.5 rounded-2xl bg-gradient-to-r from-primary/15 via-blue-900/20 to-transparent border border-primary/30 flex items-center justify-between text-xs text-slate-200">
-                  <div className="flex items-center gap-2.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                    <span>
-                      Showing recommended standards for <strong className="text-white">{sectorFilters.find(s => s.id === selectedSector)?.label}</strong>: {sectorFilters.find(s => s.id === selectedSector)?.tagline}
-                    </span>
-                  </div>
-                  <span className="hidden md:inline-block text-[11px] font-semibold text-primary">
-                    {filteredStandards.length} Standards Found
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Search & Category Filter Bar */}
+            {/* Search & Filter Bar */}
             <div className="glass rounded-3xl p-4 sm:p-6 border border-white/10 shadow-xl space-y-4">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                 {/* Search Input */}
@@ -551,7 +367,7 @@ export default function StandardsPage() {
                 {/* Category Filter Pills */}
                 <div className="flex flex-wrap items-center gap-1.5 w-full md:w-auto">
                   <span className="text-xs text-muted-foreground font-semibold mr-1 flex items-center gap-1">
-                    <Filter className="w-3.5 h-3.5 text-primary" /> Category:
+                    <Filter className="w-3.5 h-3.5 text-primary" /> Filter:
                   </span>
                   {[
                     { id: "all", label: "All" },
@@ -595,7 +411,7 @@ export default function StandardsPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="scroll-mt-32"
                   >
-                    <GlassCard className={`h-full flex flex-col p-6 sm:p-8 transition-all hover:scale-[1.02] duration-300 ${standard.borderColor} bg-gradient-to-b from-white/[0.04] to-transparent relative overflow-hidden group hover:border-primary/60 hover:shadow-[0_12px_40px_rgba(37,99,235,0.25)]`}>
+                    <GlassCard className={`h-full flex flex-col p-6 sm:p-8 transition-all hover:scale-[1.02] duration-300 ${standard.borderColor} bg-gradient-to-b from-white/[0.04] to-transparent relative overflow-hidden group`}>
                       {/* Top Badges */}
                       <div className="flex items-center justify-between gap-2 mb-5">
                         <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-primary/20 text-primary border border-primary/30">
